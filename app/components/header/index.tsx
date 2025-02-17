@@ -1,39 +1,39 @@
 'use client'
 
-import Image from "next/image"
-import Link from "next/link"
-import { NavItem } from "./nav-item"
+import Image from 'next/image'
+import { NavItem } from './nav-item'
+import Link from 'next/link'
 
-const NAV_ITENS = [
-    {
-        label: 'Home',
-        href: '/'
-    },
-    {
-        label: 'Projetos',
-        href: '/projetos'
-    },
+const NAV_ITEMS = [
+  {
+    label: 'Home',
+    href: '/',
+  },
+  {
+    label: 'Projetos',
+    href: '/projects',
+  },
 ]
 
 export const Header = () => {
-    return (
-        //NAV BAR ONDE POSSO MUDAR A COR FUTURAMENTE
-    <header className="absolute top-0 w-full z-10 h24 flex items-center justify-center">
-        <div className = "container flex items-center justify-between py-4">
-            <Link href = "/">
-                <Image    
-                width = { 58 }
-                height = { 58 }
-                src="/images/Logo.png"
-                alt="logo Erick"
-              />
-            </Link>
-            <nav className="flex items-center gap-4 sm:gap-10">
-                {NAV_ITENS.map(item => (
-                    <NavItem {...item} key={item.label} />
-                ))}
-            </nav>
-        </div>
+  return (
+      <header className="absolute top-0 z-10 h-24 w-full flex items-center justify-center">
+      <div className="container flex items-center justify-between">
+        <Link href="/">
+          <Image
+            width={58}
+            height={49}
+            src="/images/logo.svg"
+            alt="Logo GB Dev"
+          />
+        </Link>
+
+        <nav className="flex items-center gap-4 sm:gap-10">
+          {NAV_ITEMS.map(item => (
+            <NavItem {...item} key={item.label} />
+          ))}
+        </nav>
+      </div>
     </header>
     )
 }
