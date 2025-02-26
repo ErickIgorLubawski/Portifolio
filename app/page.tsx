@@ -23,13 +23,25 @@ query PageInfoQuery {
           url
           iconSvg
         }
-        knowTechs {
+        knownTechs {
           iconSvg
           name
           startDate
         }
+        highlightProjects {
+          slug
+          thumbnail {
+            url
+          }
+        title
+          shortDescription
+          technologies {
+            name
+          }
+        }
       }
     }
+
 `
 
 return fetchHygrapQuery(
@@ -38,14 +50,17 @@ return fetchHygrapQuery(
   )
 }
 
+
 export default async function Home() {
-  const {page: PageData} = await getPageData();
+  const {page: pageData} = await getPageData();
+  
+console.log(pageData)
 
   return (
     <>
-        <HeroSection homeInfo = {PageData}/>
-        <KnownTechs />
-        <HightLightedProjects/>
+        <HeroSection homeInfo = {pageData}/>
+        <KnownTechs techs = {pageData.knownTechs} />
+        <HightLightedProjects projects = {pageData.highlightProjects} />
         <WorkExperience/>
     </>
   )
