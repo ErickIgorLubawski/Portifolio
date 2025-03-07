@@ -40,6 +40,22 @@ query PageInfoQuery {
           }
         }
       }
+      workExperiences {
+        companyLogo {
+          url
+        }
+        role
+        companyName
+        companyUrl
+        startDate
+        endDate
+        description {
+          raw
+        }
+        technologies {
+          name
+        }
+      }        
     }
 
 `
@@ -52,16 +68,16 @@ return fetchHygrapQuery(
 
 
 export default async function Home() {
-  const {page: pageData} = await getPageData();
+  const {page: pageData, workExperiences} = await getPageData();
   
-console.log(pageData)
+console.log(pageData,workExperiences)
 
   return (
     <>
         <HeroSection homeInfo = {pageData}/>
         <KnownTechs techs = {pageData.knownTechs} />
         <HightLightedProjects projects = {pageData.highlightProjects} />
-        <WorkExperience/>
+        <WorkExperience experiences = {workExperiences}/>
     </>
   )
 }
