@@ -6,6 +6,6 @@ type HorizontalDivideProps = {
 
 export const HorizontalDivider = ({className}:HorizontalDivideProps) => {
     return(
-        <div className={cn('w-full my-8 border-b border-gray-800', className)}></div>    
+        <div className={cn('w-full my-8 border-b border-amber-500', className)}></div>    
     )
 }

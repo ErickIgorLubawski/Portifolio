@@ -6,6 +6,10 @@ import { Button } from "../button"
 import {useForm} from "react-hook-form"
 import {z} from "zod"
 import {zodResolver} from "@hookform/resolvers/zod"
+import axios from "axios"
+import { toast } from 'react-hot-toast'
+import { motion } from "framer-motion"
+import { fadeUpAnimation } from "@/app/lib/animation"
 
 const contactFormSchema = z.object({ 
     name: z.string().min(3).max(100),
@@ -16,49 +20,61 @@ const contactFormSchema = z.object({
 type ContactFormData = z.infer<typeof contactFormSchema>
 
 export const ContactForm = () =>{
-    const {handleSubmit, register} = useForm<ContactFormData>({ 
+    const {handleSubmit, register, reset, formState:{isSubmitting}} = useForm<ContactFormData>({ 
      resolver: zodResolver(contactFormSchema)
 })
 
-const onSubmit = (data: ContactFormData) => {
-    console.log(data)
+const onSubmit = async (data: ContactFormData) => {
+    try{
+        await axios.post('/api/contact', data)
+        toast.success('Mensagem enviada com sucesso!')
+        reset()
+    } catch {
+        toast.error('Ocorreu um erro ao enviar a mensagem. Tente novamente.')
+    }
 }
 
+
     return(
-        <section id='contact' className="py-16 px-6 md:py-32 flex items-center justify-center bg-gray-950"> 
+        <section id='contact' className="py-16 px-6 md:py-32 flex items-center justify-center bg-yellow-600"> 
             <div className="w-full max-w-[420px] mx-auto">
                 <SectionTitle
                 subtitle="contato"
                 title="Vamos trabalhar juntos? Entre em contato"
                 className="items-center text-center"
                 />
-                <form 
+                <motion.form 
                 className = "mt-12 w-full flex flex-col gap-4"
                 onSubmit={handleSubmit(onSubmit)}
+                {...fadeUpAnimation}
+                
                 >
                     <input 
                     placeholder="Nome"
-                    className="w-full h-14 bg-gray-800 rounded-lg placeholder:text-gray-400 text-gray-50 p-4 focus:outline-none focus:ring-2 ring-amber-500"
+                    className="w-full h-14 bg-stone-700rounded-lg placeholder:text-gray-400 text-gray-50 p-4 focus:outline-none focus:ring-2 ring-amber-500"
                     {...register('name')}
                     />
                     <input 
                     placeholder="E-mail"
                     type="email"
-                    className="w-full h-14 bg-gray-800 rounded-lg placeholder:text-gray-400 text-gray-50 p-4 focus:outline-none focus:ring-2 ring-amber-500"
+                    className="w-full h-14bg-stone-700 rounded-lg placeholder:text-gray-400 text-gray-50 p-4 focus:outline-none focus:ring-2 ring-amber-500"
                     {...register('email')}
                     />
                    <textarea 
                     placeholder="Mensagem"
-                    className="w-full h-[138px] bg-gray-800 rounded-lg placeholder:text-gray-400 text-gray-50 p-4 focus:outline-none focus:ring-2 ring-amber-500"
+                    className="w-full h-[138px]bg-stone-700 rounded-lg placeholder:text-gray-400 text-gray-50 p-4 focus:outline-none focus:ring-2 ring-amber-500"
                     {...register('message')}
                     maxLength={500}
                     />
 
-                    <Button className="w-max mx-auto mt-6 shadow-button">
-                        Enviar mensagem
-                        <HiArrowNarrowRight size={18}/>
+                <div className="relative w-max mx-auto mt-6">
+                    <Button className="z-[2] relative" disabled={isSubmitting}>
+                    Enviar mensagem
+                    <HiArrowNarrowRight size={18} />
                     </Button>
-                </form>
+                <div className="absolute inset-0 bg-yellow-500 blur-2xl opacity-20" />
+                </div>
+                </motion.form>
             </div> 
         </section>
 

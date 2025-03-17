@@ -13,7 +13,8 @@ export const WorkExperience = ({ experiences }: WorkExperienceProps) =>{
                 <div className = "max-w[420px]"> 
                     <SectionTitle subtitle = "experiencias" title="Experiencia profissional"/>
                     <p className="text-gray-400 mt-6">
-                        Estou sempre ....
+                    Estou sempre aberto a oportunidades que me permitam colaborar em projetos desafiadores e impactantes na área de tecnologia.
+                    ficarei feliz em conectar-me!
                     </p>    
                 </div>
 

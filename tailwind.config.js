@@ -11,13 +11,13 @@ module.exports = {
     },
     extend: {
       backgroundImage: {
-        'hero-image': "url('/images/PageInit.png')",
+        'hero-image': "url('/images/FundoHomePortfolio.png')",
       },
       fontFamily: {
         mono: ['var(--font-plex-mono)', 'monospace'],
       },
       boxShadow: {
-        button: '0px 0px 68px 7px rgba(5, 150, 105, 0.4)',
+        button: '0px 0px 68px 7px rgba(254, 217,76, 0.3)',
       },
     },
   },

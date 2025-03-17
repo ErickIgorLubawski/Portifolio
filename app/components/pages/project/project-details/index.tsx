@@ -1,3 +1,5 @@
+'use client'
+
 import { SectionTitle } from "@/app/components/section-title"
 import { TechBadge } from "@/app/components/tech-badge"
 import { TbBrandGithub } from "react-icons/tb"
@@ -5,45 +7,69 @@ import { Button } from "@/app/components/button"
 import {FiGlobe} from "react-icons/fi"
 import {Link} from "@/app/components/link"
 import { HiArrowNarrowLeft } from "react-icons/hi"
+import { Project } from "@/app/types/projects"
+import { RichText } from "@graphcms/rich-text-react-renderer"
+import project from "@/app/projects/[slug]/page"
+import { motion } from "framer-motion"
+import { fadeUpAnimation, techBadgeAnimation } from "@/app/lib/animation"
 
-export const ProjectDetails = ()=>{
+type ProjectDetailsProps = {
+    project: Project
+}
+
+export const ProjectDetails = ({ project }: ProjectDetailsProps )=>{
     return(
         <section className="w-full sm:min-h-[750px] flex flex-col items-center justify-end relative pb-10 sm:pb-24 py-24 px-6 overflow-hidden">
-            <div
+            <motion.div
                 className = "absolute inset-0 z-[-1]"
                 style ={{
-                    background: 'url(/images/hero-bg.png) no-repeat center/cover, url(https://cdn.pixabay.com/photo/2018/01/14/23/05/ecommerce-3082813_1280.jpg)'
+                    background: `url(/images/hero-bg.png) no-repeat center/cover, url(${project.pageThumbnail.url}) no-repeat center/cover`
                 }}
+                initial={{opacity: 0, scale: 1.3}}
+                animate={{opacity: 1, scale: 1}}
+                transition={{duration: 0.5}}
             />
             <SectionTitle
             subtitle ="projetos"
-            title="BookWise"
+            title= {project.title}
             className="text-center items-center sm:[&>h3]:text-4x1"
             />
-            <p className="text-gray-400 text-center max-w-[640px] my-4 sm:my-6 text-sm sm:text-base">
-                BookWise é uma plataforma de avaliação de livros que foi desenvolvida duranteqwdqwd
-            </p>
-
-            <div className="w-full max-w-[330px] flex flex-wrap gap-2 items-center justify-center">
-                <TechBadge name="Nex.js" />
-                <TechBadge name="Nex.js" />
-                <TechBadge name="Nex.js" />
-                <TechBadge name="Nex.js" />
+            <motion.div 
+            className="text-gray-50 text-center max-w-[640px] my-4 sm:my-6 text-sm sm:text-base"
+            {...fadeUpAnimation}>
+                <RichText content={project.description.raw}/>
+            </motion.div>
+                <div className="w-full max-w-[330px] flex flex-wrap gap-2 items-center justify-center">
+               {project.technologies.map((tech, i) => (
+                   <TechBadge
+                   key={tech.name}
+                   name={tech.name}
+                   {...techBadgeAnimation}
+                   transition={{  duration: 0.3, delay: i * 0.1}}
+                   />
+               ))}
             </div>
-            <div className="my-6 sm:my-12 flex items-center gap-2 sm:gap-4 flex-col sm:flex-row">
-                <a href="https://github/com" target="_blank">
-                <Button className="min-w-[180px]">
-                    <TbBrandGithub size={20}/>
-                    Repositorio
-                </Button>
-                </a>
-                <a href="https://github/com" target="_blank">
-                <Button className="min-w-[180px]">
-                    <FiGlobe size={20}/>
+            <motion.div 
+            className="my-6 sm:my-12 flex items-center gap-2 sm:gap-4 flex-col sm:flex-row"
+            {...fadeUpAnimation}
+            >
+                {project?.githubUrl && (
+                    <a href={project.githubUrl} target="_blank">
+                        <Button className="min-w-[180px]">
+                            <TbBrandGithub size={20}/>
+                            Código Fonte
+                        </Button>
+                    </a>
+                )}
+                {project?.liveProjectUrl && (
+                    <a href={project.liveProjectUrl} target="_blank">
+                    <Button className="min-w-[180px]">
+                        <FiGlobe size={20}/>
                     Projeto Online
                 </Button>
                 </a>
-            </div>
+                )}
+            </motion.div >
                 <Link href="/projects">
                     <HiArrowNarrowLeft size={20}/>
                     Voltar para Projetos
