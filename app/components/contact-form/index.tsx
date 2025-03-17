@@ -62,7 +62,7 @@ const onSubmit = async (data: ContactFormData) => {
                     />
                    <textarea 
                     placeholder="Mensagem"
-                    className="w-full h-[138px]bg-stone-700 rounded-lg placeholder:text-gray-400 text-gray-50 p-4 focus:outline-none focus:ring-2 ring-amber-500"
+                    className="w-full h-[138px]bg-stone-700 rounded-lg placeholder:text-gray-400 text-amber-400 p-4 focus:outline-none focus:ring-2 ring-amber-500"
                     {...register('message')}
                     maxLength={500}
                     />
