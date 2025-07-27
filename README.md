@@ -24,6 +24,6 @@ Este portfólio também conta com uma integração ao Discord, permitindo que me
 
 Este projeto reflete minha abordagem para desenvolvimento dinâmico e modular, utilizando microserviços e integração eficiente entre sistemas. Se você deseja trocar ideias ou colaborar em projetos, entre em contato!
 
-📫 Contato: [Seu e-mail ou LinkedIn]🔗 Portfólio Online: [Link para seu portfólio]
+📫 Contato: eri_ck97@hotmail.com.br 🔗 Portfólio Online: https://erickwski-portfolio.vercel.app/
 
 #Tecnologia #DesenvolvimentoBackend #NodeJS #NextJS #Microserviços #Automatização #SAPBusinessOne #AprendizadoConstante
